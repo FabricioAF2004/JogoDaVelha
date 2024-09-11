@@ -21,36 +21,51 @@ public class Tela extends javax.swing.JFrame {
         initComponents();
     }
 
-    private void verificarVencedor() {
-        // Verifica as linhas
-        for (int i = 0; i < 3; i++) {
-            if (tabuleiro[i][0] != null && tabuleiro[i][0].equals(tabuleiro[i][1]) && tabuleiro[i][1].equals(tabuleiro[i][2])) {
-                JOptionPane.showMessageDialog(this, "Jogador " + tabuleiro[i][0] + " venceu!");
-                resetarTabuleiro();
-                return;
-            }
-        }
-        // Verifica as colunas
-        for (int i = 0; i < 3; i++) {
-            if (tabuleiro[0][i] != null && tabuleiro[0][i].equals(tabuleiro[1][i]) && tabuleiro[1][i].equals(tabuleiro[2][i])) {
-                JOptionPane.showMessageDialog(this, "Jogador " + tabuleiro[0][i] + " venceu!");
-                resetarTabuleiro();
-                return;
-            }
-        }
-        // Verifica as diagonais
-        if (tabuleiro[0][0] != null && tabuleiro[0][0].equals(tabuleiro[1][1]) && tabuleiro[1][1].equals(tabuleiro[2][2])) {
-            JOptionPane.showMessageDialog(this, "Jogador " + tabuleiro[0][0] + " venceu!");
-            resetarTabuleiro();
-            return;
-        }
-        if (tabuleiro[0][2] != null && tabuleiro[0][2].equals(tabuleiro[1][1]) && tabuleiro[1][1].equals(tabuleiro[2][0])) {
-            JOptionPane.showMessageDialog(this, "Jogador " + tabuleiro[0][2] + " venceu!");
+   private void verificarVencedor() {
+    // Verifica as linhas
+    for (int i = 0; i < 3; i++) {
+        if (tabuleiro[i][0] != null && tabuleiro[i][0].equals(tabuleiro[i][1]) && tabuleiro[i][1].equals(tabuleiro[i][2])) {
+            JOptionPane.showMessageDialog(this, "Jogador " + tabuleiro[i][0] + " venceu!");
             resetarTabuleiro();
             return;
         }
     }
-
+    // Verifica as colunas
+    for (int i = 0; i < 3; i++) {
+        if (tabuleiro[0][i] != null && tabuleiro[0][i].equals(tabuleiro[1][i]) && tabuleiro[1][i].equals(tabuleiro[2][i])) {
+            JOptionPane.showMessageDialog(this, "Jogador " + tabuleiro[0][i] + " venceu!");
+            resetarTabuleiro();
+            return;
+        }
+    }
+    // Verifica as diagonais
+    if (tabuleiro[0][0] != null && tabuleiro[0][0].equals(tabuleiro[1][1]) && tabuleiro[1][1].equals(tabuleiro[2][2])) {
+        JOptionPane.showMessageDialog(this, "Jogador " + tabuleiro[0][0] + " venceu!");
+        resetarTabuleiro();
+        return;
+    }
+    if (tabuleiro[0][2] != null && tabuleiro[0][2].equals(tabuleiro[1][1]) && tabuleiro[1][1].equals(tabuleiro[2][0])) {
+        JOptionPane.showMessageDialog(this, "Jogador " + tabuleiro[0][2] + " venceu!");
+        resetarTabuleiro();
+        return;
+    }
+    
+    // Verifica empate (todas as células preenchidas)
+    boolean empate = true;
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            if (tabuleiro[i][j] == null) {
+                empate = false;
+                break;
+            }
+        }
+    }
+    
+    if (empate) {
+        JOptionPane.showMessageDialog(this, "Empate!");
+        resetarTabuleiro();
+    }
+}
     private void jogar(javax.swing.JButton botao, int linha, int coluna) {
         if (tabuleiro[linha][coluna] == null) {
             if (jogadorX) {
